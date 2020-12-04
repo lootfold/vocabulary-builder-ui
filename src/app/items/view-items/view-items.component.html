@@ -1,5 +1,6 @@
 <div class="container pt-3">
-  <ol class="list-group">
+  <button type="menu" class="btn btn-primary" (click)="openModal()"> Add </button>
+  <ol class="list-group mt-2">
     <li class="list-group-item" *ngFor="let item of items">
       {{ item.word }}
     </li>

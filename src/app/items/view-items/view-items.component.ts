@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { AddItemComponent } from '../add-item/add-item.component';
 
 @Component({
   selector: 'app-view-items',
@@ -7,11 +9,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-items.component.scss'],
 })
 export class ViewItemsComponent implements OnInit {
-  constructor(private httpClient: HttpClient) {}
-
   private _items;
+  private bsModalRef: BsModalRef;
+
+  constructor(
+    private httpClient: HttpClient,
+    private modalService: BsModalService
+  ) {}
 
   ngOnInit(): void {
+    this.fetchItems();
+  }
+
+  get items() {
+    return this._items;
+  }
+
+  private fetchItems(): void {
     this.httpClient.get('/api/items').subscribe(
       (response) => {
         this._items = response;
@@ -21,7 +35,10 @@ export class ViewItemsComponent implements OnInit {
     );
   }
 
-  get items() {
-    return this._items;
+  public openModal() {
+    this.bsModalRef = this.modalService.show(AddItemComponent);
+    this.modalService.onHide.subscribe(() => {
+      this.fetchItems();
+    });
   }
 }

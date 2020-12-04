@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add new item</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span>&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="word">Word</label>
+      <input formControlName="word" class="form-control" type="text" id="word" placeholder="enter a word" />
+      <div class="alert alert-danger" *ngIf="wordControl.touched && wordControl.invalid">
+        <div *ngIf="wordControl.errors.required">Word is required.</div>
+        <div *ngIf="wordControl.errors.minlength">
+          Word should be minimum
+          {{ wordControl.errors.minlength.requiredLength }} characters.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="meaning">Meaning</label>
+      <textarea formControlName="meaning" class="form-control" type="textarea" id="meaning"
+        placeholder="enter the meaning"></textarea>
+      <div class="alert alert-danger" *ngIf="meaningControl.touched && meaningControl.invalid">
+        <div *ngIf="meaningControl.errors.required">Meaning is required.</div>
+        <div *ngIf="meaningControl.errors.minlength">
+          Word should be minimum
+          {{ meaningControl.errors.minlength.requiredLength }} characters.
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" type="submit" [disabled]="form.invalid" (click)="submitForm()">
+    Add
+  </button>
+  <button class="btn" type="reset" (click)="bsModalRef.hide()">
+    Close
+  </button>
+</div>
