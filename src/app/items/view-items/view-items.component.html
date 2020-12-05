@@ -2,7 +2,16 @@
   <button type="menu" class="btn btn-primary" (click)="openModal()"> Add </button>
   <ol class="list-group mt-2">
     <li class="list-group-item" *ngFor="let item of items">
-      {{ item.word }}
+      <div class="d-flex flex-row">
+        <div class="d-flex align-items-center">
+          <span>{{ item.word }}</span>
+        </div>
+        <div class="d-flex ml-auto">
+          <button type="button" class="btn" (click)="deleteItem(item.id)">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
     </li>
   </ol>
 </div>

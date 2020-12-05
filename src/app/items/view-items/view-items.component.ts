@@ -35,10 +35,21 @@ export class ViewItemsComponent implements OnInit {
     );
   }
 
-  public openModal() {
+  public openModal(): void {
     this.bsModalRef = this.modalService.show(AddItemComponent);
     this.modalService.onHide.subscribe(() => {
       this.fetchItems();
     });
+  }
+
+  public deleteItem(id: number): void {
+    console.log(`DELETE: ${id}`);
+    this.httpClient.delete(`/api/items/${id}`).subscribe(
+      (response) => {
+        console.log(`DELETE SUCCESS`);
+        this.fetchItems();
+      },
+      (error) => console.log(`ERROR: ${error}`)
+    );
   }
 }
