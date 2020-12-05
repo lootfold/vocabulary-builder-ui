@@ -1,3 +1,4 @@
+import { ViewItemComponent } from './../view-item/view-item.component';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -51,5 +52,15 @@ export class ViewItemsComponent implements OnInit {
       },
       (error) => console.log(`ERROR: ${error}`)
     );
+  }
+
+  public openViewModal(item): void {
+    console.log(`VIEW: ${item.id}`);
+    const initialState = {
+      item: item,
+    };
+    this.bsModalRef = this.modalService.show(ViewItemComponent, {
+      initialState,
+    });
   }
 }

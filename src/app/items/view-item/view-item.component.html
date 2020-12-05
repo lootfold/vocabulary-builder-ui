@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title">View item</h4>
+    <button type="button" class="btn float-right" (click)="bsModalRef.hide()">
+        <i class="fa fa-times"></i>
+    </button>
+</div>
+<div class="modal-body">
+    <div>
+        <h4>
+            <span class="badge badge-info">
+                {{item.word}}
+            </span>
+        </h4>
+    </div>
+    <div class="mt-2">
+        <p>
+            <i class="fa fa-caret-right" aria-hidden="true"></i>
+            {{item.meaning}}
+        </p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn" type="reset" (click)="bsModalRef.hide()">
+        <i class="fa fa-pencil"></i>
+    </button>
+</div>

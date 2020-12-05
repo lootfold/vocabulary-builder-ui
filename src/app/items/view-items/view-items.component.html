@@ -4,11 +4,13 @@
     <li class="list-group-item" *ngFor="let item of items">
       <div class="d-flex flex-row">
         <div class="d-flex align-items-center">
-          <span>{{ item.word }}</span>
+          <a (click)="openViewModal(item)">
+            <span> {{ item.word }} </span>
+          </a>
         </div>
         <div class="d-flex ml-auto">
           <button type="button" class="btn" (click)="deleteItem(item.id)">
-            <i class="fa fa-times"></i>
+            <i class="fa fa-trash"></i>
           </button>
         </div>
       </div>

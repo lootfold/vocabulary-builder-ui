@@ -7,9 +7,10 @@ import { ViewItemsComponent } from './items/view-items/view-items.component';
 import { AddItemComponent } from './items/add-item/add-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ViewItemComponent } from './items/view-item/view-item.component';
 
 @NgModule({
-  declarations: [AppComponent, ViewItemsComponent, AddItemComponent],
+  declarations: [AppComponent, ViewItemsComponent, AddItemComponent, ViewItemComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
