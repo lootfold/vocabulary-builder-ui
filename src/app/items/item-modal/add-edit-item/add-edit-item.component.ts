@@ -40,31 +40,17 @@ export class AddEditItemComponent implements OnInit {
   }
 
   public submitForm(): void {
-    console.log(`FORM DATA: ${JSON.stringify(this.form.value)}`);
     if (this.form.valid) {
       if (this.action === ACTION.ADD) {
-        this.client.post('/api/items', this.form.value).subscribe(
-          (response) => {
-            console.log(`SUCCESS: ${JSON.stringify(response)}`);
-            this.bsModalRef.hide();
-          },
-          (error) => {
-            console.log(`FAILED: ${error}`);
-          }
-        );
+        this.client.post('/api/items', this.form.value).subscribe(() => {
+          this.bsModalRef.hide();
+        });
       } else if (this.action === ACTION.EDIT) {
-        console.log(`EDIT ITEM ID: ${this.item.id}`);
         this.client
           .put(`/api/items/${this.item.id}`, this.form.value)
-          .subscribe(
-            (response) => {
-              console.log(`SUCCESS: ${JSON.stringify(response)}`);
-              this.bsModalRef.hide();
-            },
-            (error) => {
-              console.log(`FAILED: ${error}`);
-            }
-          );
+          .subscribe(() => {
+            this.bsModalRef.hide();
+          });
       }
     }
   }

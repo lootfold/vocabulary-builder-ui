@@ -16,7 +16,6 @@ export class ViewItemComponent implements OnInit {
   ngOnInit(): void {}
 
   onEdit() {
-    console.log(`view-item | ${this.item.word}`);
     this.edit.emit(this.item);
   }
 }

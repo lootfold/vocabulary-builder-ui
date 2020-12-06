@@ -11,7 +11,7 @@ import { ItemModalComponent } from '../item-modal/item-modal.component';
 })
 export class ViewItemListComponent implements OnInit {
   public items: Item[];
-  bsModalRef: BsModalRef;
+  public bsModalRef: BsModalRef;
 
   constructor(
     private httpClient: HttpClient,
@@ -23,28 +23,18 @@ export class ViewItemListComponent implements OnInit {
   }
 
   private fetchItems(): void {
-    this.httpClient.get<Item[]>('/api/items').subscribe(
-      (response) => {
-        this.items = response;
-        console.log(this.items);
-      },
-      (error) => console.log(error)
-    );
+    this.httpClient.get<Item[]>('/api/items').subscribe((response) => {
+      this.items = response;
+    });
   }
 
   public deleteItem(id: number): void {
-    console.log(`DELETE: ${id}`);
-    this.httpClient.delete(`/api/items/${id}`).subscribe(
-      () => {
-        console.log(`DELETE SUCCESS`);
-        this.fetchItems();
-      },
-      (error) => console.log(`ERROR: ${error}`)
-    );
+    this.httpClient.delete(`/api/items/${id}`).subscribe(() => {
+      this.fetchItems();
+    });
   }
 
   public openModal(item: Item): void {
-    // console.log(`OPEN MODAL: ${item.id}`);
     const initialState = {
       item: item,
     };
