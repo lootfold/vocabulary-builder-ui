@@ -1,3 +1,2 @@
-<app-add-item *ngIf="showAddComponent"></app-add-item>
-
-<app-view-item *ngIf="showViewComponent" [item]="item"></app-view-item>
+<app-add-item *ngIf="showAddComponent" [item]="item"></app-add-item>
+<app-view-item *ngIf="showViewComponent" [item]="item" (edit)="onEdit($event)"></app-view-item>

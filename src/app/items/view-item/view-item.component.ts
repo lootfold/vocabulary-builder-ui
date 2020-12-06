@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Item } from './../items-model';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -7,9 +8,15 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./view-item.component.scss'],
 })
 export class ViewItemComponent implements OnInit {
-  @Input() item;
+  @Input() item: Item;
+  @Output() edit = new EventEmitter<Item>();
 
   constructor(public bsModalRef: BsModalRef) {}
 
   ngOnInit(): void {}
+
+  onEdit() {
+    console.log(`view-item | ${this.item.word}`);
+    this.edit.emit(this.item);
+  }
 }

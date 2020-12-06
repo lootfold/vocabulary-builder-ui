@@ -1,8 +1,8 @@
-import { ItemModalComponent } from '../item-modal/item-modal.component';
-import { ACTION, Item } from '../items-model';
+import { Item } from '../items-model';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { ItemModalComponent } from '../item-modal/item-modal.component';
 
 @Component({
   selector: 'app-view-item-list',
@@ -10,8 +10,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./view-item-list.component.scss'],
 })
 export class ViewItemListComponent implements OnInit {
-  private _items;
-  public action: ACTION;
+  public items: Item[];
   bsModalRef: BsModalRef;
 
   constructor(
@@ -23,15 +22,11 @@ export class ViewItemListComponent implements OnInit {
     this.fetchItems();
   }
 
-  get items() {
-    return this._items;
-  }
-
   private fetchItems(): void {
-    this.httpClient.get('/api/items').subscribe(
+    this.httpClient.get<Item[]>('/api/items').subscribe(
       (response) => {
-        this._items = response;
-        console.log(this._items);
+        this.items = response;
+        console.log(this.items);
       },
       (error) => console.log(error)
     );
@@ -48,18 +43,9 @@ export class ViewItemListComponent implements OnInit {
     );
   }
 
-  public setActionToAdd(): void {
-    this.action = ACTION.ADD;
-  }
-
-  public setActionToView(): void {
-    this.action = ACTION.VIEW;
-  }
-
   public openModal(item: Item): void {
     // console.log(`OPEN MODAL: ${item.id}`);
     const initialState = {
-      action: this.action,
       item: item,
     };
     this.bsModalRef = this.modalService.show(ItemModalComponent, {

@@ -1,4 +1,3 @@
-import { ACTION } from '../items-model';
 import { Item } from '../items-model';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -8,18 +7,20 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./item-modal.component.scss'],
 })
 export class ItemModalComponent implements OnInit {
-  @Input() public action: ACTION;
   @Input() public item: Item;
+  public showAddComponent: boolean;
+  public showViewComponent: boolean;
 
   constructor() {}
 
-  ngOnInit(): void {}
-
-  get showAddComponent(): boolean {
-    return this.action == ACTION.ADD;
+  ngOnInit(): void {
+    this.showViewComponent = this.item && true;
+    this.showAddComponent = !this.item && true;
   }
 
-  get showViewComponent(): boolean {
-    return this.action == ACTION.VIEW;
+  onEdit(item: Item) {
+    this.showViewComponent = false;
+    this.showAddComponent = true;
+    console.log(`${JSON.stringify(item)}`);
   }
 }

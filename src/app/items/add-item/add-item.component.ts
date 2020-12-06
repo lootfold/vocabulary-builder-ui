@@ -1,5 +1,6 @@
+import { ACTION, Item } from './../items-model';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -14,11 +15,15 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./add-item.component.scss'],
 })
 export class AddItemComponent implements OnInit {
+  @Input() item: Item;
+
+  public action: ACTION;
   public form: FormGroup;
 
   constructor(private client: HttpClient, public bsModalRef: BsModalRef) {}
 
   ngOnInit(): void {
+    this.action = ACTION.ADD;
     this.form = new FormGroup({
       word: new FormControl(null, [
         Validators.required,
@@ -26,20 +31,41 @@ export class AddItemComponent implements OnInit {
       ]),
       meaning: new FormControl(null, Validators.required),
     });
+
+    if (this.item) {
+      this.action = ACTION.EDIT;
+      this.form.controls.word.setValue(this.item.word);
+      this.form.controls.meaning.setValue(this.item.meaning);
+    }
   }
 
   public submitForm(): void {
     console.log(`FORM DATA: ${JSON.stringify(this.form.value)}`);
     if (this.form.valid) {
-      this.client.post('/api/items', this.form.value).subscribe(
-        (response) => {
-          console.log(`SUCCESS: ${JSON.stringify(response)}`);
-          this.bsModalRef.hide();
-        },
-        (error) => {
-          console.log(`FAILED: ${error}`);
-        }
-      );
+      if (this.action === ACTION.ADD) {
+        this.client.post('/api/items', this.form.value).subscribe(
+          (response) => {
+            console.log(`SUCCESS: ${JSON.stringify(response)}`);
+            this.bsModalRef.hide();
+          },
+          (error) => {
+            console.log(`FAILED: ${error}`);
+          }
+        );
+      } else if (this.action === ACTION.EDIT) {
+        console.log(`EDIT ITEM ID: ${this.item.id}`);
+        this.client
+          .put(`/api/items/${this.item.id}`, this.form.value)
+          .subscribe(
+            (response) => {
+              console.log(`SUCCESS: ${JSON.stringify(response)}`);
+              this.bsModalRef.hide();
+            },
+            (error) => {
+              console.log(`FAILED: ${error}`);
+            }
+          );
+      }
     }
   }
 
