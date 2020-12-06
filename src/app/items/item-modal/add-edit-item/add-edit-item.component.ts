@@ -1,4 +1,4 @@
-import { ACTION, Item } from '../items-model';
+import { ACTION, Item } from '../../items-model';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {

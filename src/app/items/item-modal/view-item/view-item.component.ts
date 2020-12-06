@@ -1,4 +1,4 @@
-import { Item } from './../items-model';
+import { Item } from '../../items-model';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
