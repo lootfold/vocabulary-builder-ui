@@ -1,4 +1,4 @@
-import { ACTION, Item } from './../items-model';
+import { ACTION, Item } from '../items-model';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {
@@ -10,11 +10,11 @@ import {
 import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
-  selector: 'app-add-item',
-  templateUrl: './add-item.component.html',
-  styleUrls: ['./add-item.component.scss'],
+  selector: 'app-add-edit-item',
+  templateUrl: './add-edit-item.component.html',
+  styleUrls: ['./add-edit-item.component.scss'],
 })
-export class AddItemComponent implements OnInit {
+export class AddEditItemComponent implements OnInit {
   @Input() item: Item;
 
   public action: ACTION;

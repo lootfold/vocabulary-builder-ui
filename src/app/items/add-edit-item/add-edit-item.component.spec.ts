@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { AddItemComponent } from './add-item.component';
+import { AddEditItemComponent } from './add-edit-item.component';
 
 describe('AddItemComponent', () => {
-  let component: AddItemComponent;
-  let fixture: ComponentFixture<AddItemComponent>;
+  let component: AddEditItemComponent;
+  let fixture: ComponentFixture<AddEditItemComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddItemComponent ]
+      declarations: [ AddEditItemComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddItemComponent);
+    fixture = TestBed.createComponent(AddEditItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

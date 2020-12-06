@@ -8,19 +8,19 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ItemModalComponent implements OnInit {
   @Input() public item: Item;
-  public showAddComponent: boolean;
+  public showAddEditComponent: boolean;
   public showViewComponent: boolean;
 
   constructor() {}
 
   ngOnInit(): void {
     this.showViewComponent = this.item && true;
-    this.showAddComponent = !this.item && true;
+    this.showAddEditComponent = !this.item && true;
   }
 
   onEdit(item: Item) {
     this.showViewComponent = false;
-    this.showAddComponent = true;
+    this.showAddEditComponent = true;
     console.log(`${JSON.stringify(item)}`);
   }
 }
