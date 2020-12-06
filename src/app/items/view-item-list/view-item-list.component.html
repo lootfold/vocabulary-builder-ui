@@ -1,6 +1,6 @@
 <div class="container pt-3">
   <div class="d-flex justify-content-center">
-    <button type="menu" class="btn btn-primary" (click)="openModal()">
+    <button type="menu" class="btn btn-primary" (mouseover)="setActionToAdd()" (click)="openModal(null)">
       <span>Add Word</span>
       &nbsp;
       <i class="fa fa-plus"></i>
@@ -10,7 +10,7 @@
     <li class="list-group-item" *ngFor="let item of items">
       <div class="d-flex flex-row">
         <div class="d-flex align-items-center">
-          <a (click)="openViewModal(item)">
+          <a (mouseover)="setActionToView()" (click)="openModal(item)">
             <span> {{ item.word }} </span>
           </a>
         </div>

@@ -8,15 +8,22 @@ import { AddItemComponent } from './items/add-item/add-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ViewItemComponent } from './items/view-item/view-item.component';
+import { ItemModalComponent } from './items/item-modal/item-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, ViewItemListComponent, AddItemComponent, ViewItemComponent],
+  declarations: [
+    AppComponent,
+    ViewItemListComponent,
+    AddItemComponent,
+    ViewItemComponent,
+    ItemModalComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

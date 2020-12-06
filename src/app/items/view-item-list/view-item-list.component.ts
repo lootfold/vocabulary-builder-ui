@@ -1,8 +1,8 @@
-import { ViewItemComponent } from '../view-item/view-item.component';
+import { ItemModalComponent } from '../item-modal/item-modal.component';
+import { ACTION, Item } from '../items-model';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AddItemComponent } from '../add-item/add-item.component';
 
 @Component({
   selector: 'app-view-item-list',
@@ -11,7 +11,8 @@ import { AddItemComponent } from '../add-item/add-item.component';
 })
 export class ViewItemListComponent implements OnInit {
   private _items;
-  private bsModalRef: BsModalRef;
+  public action: ACTION;
+  bsModalRef: BsModalRef;
 
   constructor(
     private httpClient: HttpClient,
@@ -36,17 +37,10 @@ export class ViewItemListComponent implements OnInit {
     );
   }
 
-  public openModal(): void {
-    this.bsModalRef = this.modalService.show(AddItemComponent);
-    this.modalService.onHide.subscribe(() => {
-      this.fetchItems();
-    });
-  }
-
   public deleteItem(id: number): void {
     console.log(`DELETE: ${id}`);
     this.httpClient.delete(`/api/items/${id}`).subscribe(
-      (response) => {
+      () => {
         console.log(`DELETE SUCCESS`);
         this.fetchItems();
       },
@@ -54,13 +48,25 @@ export class ViewItemListComponent implements OnInit {
     );
   }
 
-  public openViewModal(item): void {
-    console.log(`VIEW: ${item.id}`);
+  public setActionToAdd(): void {
+    this.action = ACTION.ADD;
+  }
+
+  public setActionToView(): void {
+    this.action = ACTION.VIEW;
+  }
+
+  public openModal(item: Item): void {
+    // console.log(`OPEN MODAL: ${item.id}`);
     const initialState = {
+      action: this.action,
       item: item,
     };
-    this.bsModalRef = this.modalService.show(ViewItemComponent, {
+    this.bsModalRef = this.modalService.show(ItemModalComponent, {
       initialState,
+    });
+    this.modalService.onHide.subscribe(() => {
+      this.fetchItems();
     });
   }
 }
