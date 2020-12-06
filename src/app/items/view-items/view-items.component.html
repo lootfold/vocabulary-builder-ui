@@ -1,5 +1,11 @@
 <div class="container pt-3">
-  <button type="menu" class="btn btn-primary" (click)="openModal()"> Add </button>
+  <div class="d-flex justify-content-center">
+    <button type="menu" class="btn btn-primary" (click)="openModal()">
+      <span>Add Word</span>
+      &nbsp;
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
   <ol class="list-group mt-2">
     <li class="list-group-item" *ngFor="let item of items">
       <div class="d-flex flex-row">
