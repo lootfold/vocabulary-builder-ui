@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { ViewItemsComponent } from './view-items.component';
+import { ViewItemListComponent } from './view-item-list.component';
 
 describe('ViewItemsComponent', () => {
-  let component: ViewItemsComponent;
-  let fixture: ComponentFixture<ViewItemsComponent>;
+  let component: ViewItemListComponent;
+  let fixture: ComponentFixture<ViewItemListComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewItemsComponent ]
+      declarations: [ ViewItemListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewItemsComponent);
+    fixture = TestBed.createComponent(ViewItemListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

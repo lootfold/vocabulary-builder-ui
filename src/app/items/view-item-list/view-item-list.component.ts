@@ -1,15 +1,15 @@
-import { ViewItemComponent } from './../view-item/view-item.component';
+import { ViewItemComponent } from '../view-item/view-item.component';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { AddItemComponent } from '../add-item/add-item.component';
 
 @Component({
-  selector: 'app-view-items',
-  templateUrl: './view-items.component.html',
-  styleUrls: ['./view-items.component.scss'],
+  selector: 'app-view-item-list',
+  templateUrl: './view-item-list.component.html',
+  styleUrls: ['./view-item-list.component.scss'],
 })
-export class ViewItemsComponent implements OnInit {
+export class ViewItemListComponent implements OnInit {
   private _items;
   private bsModalRef: BsModalRef;
 
