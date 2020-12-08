@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ItemModalComponent } from '../item-modal/item-modal.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-view-item-list',
@@ -15,7 +16,8 @@ export class ViewItemListComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -23,15 +25,25 @@ export class ViewItemListComponent implements OnInit {
   }
 
   private fetchItems(): void {
-    this.httpClient.get<Item[]>('/api/items').subscribe((response) => {
-      this.items = response;
-    });
+    this.spinner.show();
+    this.httpClient.get<Item[]>('/api/items').subscribe(
+      (response) => {
+        this.items = response;
+        this.spinner.hide();
+      },
+      () => this.spinner.hide()
+    );
   }
 
   public deleteItem(id: number): void {
-    this.httpClient.delete(`/api/items/${id}`).subscribe(() => {
-      this.fetchItems();
-    });
+    this.spinner.show();
+    this.httpClient.delete(`/api/items/${id}`).subscribe(
+      () => {
+        this.fetchItems();
+        this.spinner.hide();
+      },
+      () => this.spinner.hide()
+    );
   }
 
   public openModal(item: Item): void {

@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-edit-item',
@@ -20,7 +21,11 @@ export class AddEditItemComponent implements OnInit {
   public action: ACTION;
   public form: FormGroup;
 
-  constructor(private client: HttpClient, public bsModalRef: BsModalRef) {}
+  constructor(
+    private client: HttpClient,
+    public bsModalRef: BsModalRef,
+    private spinner: NgxSpinnerService
+  ) {}
 
   ngOnInit(): void {
     this.action = ACTION.ADD;
@@ -41,16 +46,25 @@ export class AddEditItemComponent implements OnInit {
 
   public submitForm(): void {
     if (this.form.valid) {
+      this.spinner.show();
       if (this.action === ACTION.ADD) {
-        this.client.post('/api/items', this.form.value).subscribe(() => {
-          this.bsModalRef.hide();
-        });
+        this.client.post('/api/items', this.form.value).subscribe(
+          () => {
+            this.bsModalRef.hide();
+            this.spinner.hide();
+          },
+          () => this.spinner.hide()
+        );
       } else if (this.action === ACTION.EDIT) {
         this.client
           .put(`/api/items/${this.item.id}`, this.form.value)
-          .subscribe(() => {
-            this.bsModalRef.hide();
-          });
+          .subscribe(
+            () => {
+              this.bsModalRef.hide();
+              this.spinner.hide();
+            },
+            () => this.spinner.hide()
+          );
       }
     }
   }
