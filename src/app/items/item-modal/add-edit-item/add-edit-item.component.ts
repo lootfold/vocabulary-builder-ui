@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-item',
@@ -24,7 +25,8 @@ export class AddEditItemComponent implements OnInit {
   constructor(
     private client: HttpClient,
     public bsModalRef: BsModalRef,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -52,8 +54,12 @@ export class AddEditItemComponent implements OnInit {
           () => {
             this.bsModalRef.hide();
             this.spinner.hide();
+            this.toastr.success('Item added successfully.');
           },
-          () => this.spinner.hide()
+          () => {
+            this.spinner.hide(),
+              this.toastr.error('Oops, failed to add item. :(');
+          }
         );
       } else if (this.action === ACTION.EDIT) {
         this.client
@@ -62,8 +68,12 @@ export class AddEditItemComponent implements OnInit {
             () => {
               this.bsModalRef.hide();
               this.spinner.hide();
+              this.toastr.success('Item modified successfully.');
             },
-            () => this.spinner.hide()
+            () => {
+              this.spinner.hide();
+              this.toastr.error('Oops, failed to add item. :(');
+            }
           );
       }
     }

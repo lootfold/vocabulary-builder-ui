@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ItemModalComponent } from '../item-modal/item-modal.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-item-list',
@@ -17,7 +18,8 @@ export class ViewItemListComponent implements OnInit {
   constructor(
     private httpClient: HttpClient,
     private modalService: BsModalService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -31,7 +33,10 @@ export class ViewItemListComponent implements OnInit {
         this.items = response;
         this.spinner.hide();
       },
-      () => this.spinner.hide()
+      () => {
+        this.spinner.hide();
+        this.toastrService.error('Oops, Failed to fetch items. :(');
+      }
     );
   }
 
@@ -41,8 +46,12 @@ export class ViewItemListComponent implements OnInit {
       () => {
         this.fetchItems();
         this.spinner.hide();
+        this.toastrService.success('Item deleted successfully.');
       },
-      () => this.spinner.hide()
+      () => {
+        this.spinner.hide();
+        this.toastrService.error('Oops, Failed to delete item. :(');
+      }
     );
   }
 

@@ -10,6 +10,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ViewItemComponent } from './items/item-modal/view-item/view-item.component';
 import { ItemModalComponent } from './items/item-modal/item-modal.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HttpClientModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
