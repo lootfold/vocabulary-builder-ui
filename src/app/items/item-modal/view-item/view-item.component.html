@@ -1,6 +1,6 @@
 <div class="modal-header">
     <h4 class="modal-title">View item</h4>
-    <button type="button" class="btn float-right" (click)="bsModalRef.hide()">
+    <button type="button" class="btn float-right" (click)="bsModalRef.hide()" tooltip="close" placement="right">
         <i class="fa fa-times"></i>
     </button>
 </div>
@@ -20,7 +20,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn" type="reset" (click)="onEdit()">
+    <button class="btn" type="reset" (click)="onEdit()" tooltip="edit" placement="right">
         <i class="fa fa-pencil"></i>
     </button>
 </div>

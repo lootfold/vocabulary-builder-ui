@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Add new item</h4>
-  <button type="button" class="btn float-right" (click)="bsModalRef.hide()">
+  <button type="button" class="btn float-right" (click)="bsModalRef.hide()" tooltip="close" placement="right">
     <i class="fa fa-times" aria-hidden="true"></i>
   </button>
 </div>
@@ -32,7 +32,7 @@
   </form>
 </div>
 <div class="modal-footer">
-  <button class="btn" type="submit" [disabled]="form.invalid" (click)="submitForm()">
+  <button class="btn" type="submit" [disabled]="form.invalid" (click)="submitForm()" tooltip="save" placement="right">
     <i class="fa fa-check"></i>
   </button>
 </div>
