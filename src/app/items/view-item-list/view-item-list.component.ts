@@ -1,5 +1,5 @@
+import { ItemsService } from './../items.service';
 import { Item } from '../items-model';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ItemModalComponent } from '../item-modal/item-modal.component';
@@ -16,10 +16,10 @@ export class ViewItemListComponent implements OnInit {
   public bsModalRef: BsModalRef;
 
   constructor(
-    private httpClient: HttpClient,
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private service: ItemsService
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class ViewItemListComponent implements OnInit {
 
   private fetchItems(): void {
     this.spinner.show();
-    this.httpClient.get<Item[]>('/api/items').subscribe(
+    this.service.getItems().subscribe(
       (response) => {
         this.items = response;
         this.spinner.hide();
@@ -42,7 +42,7 @@ export class ViewItemListComponent implements OnInit {
 
   public deleteItem(id: number): void {
     this.spinner.show();
-    this.httpClient.delete(`/api/items/${id}`).subscribe(
+    this.service.deleteItem(id).subscribe(
       () => {
         this.fetchItems();
         this.spinner.hide();

@@ -1,5 +1,5 @@
+import { ItemsService } from './../../items.service';
 import { ACTION, Item } from '../../items-model';
-import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -23,10 +23,10 @@ export class AddEditItemComponent implements OnInit {
   public form: FormGroup;
 
   constructor(
-    private client: HttpClient,
     public bsModalRef: BsModalRef,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private service: ItemsService
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class AddEditItemComponent implements OnInit {
     if (this.form.valid) {
       this.spinner.show();
       if (this.action === ACTION.ADD) {
-        this.client.post('/api/items', this.form.value).subscribe(
+        this.service.addItem(this.form.value).subscribe(
           () => {
             this.bsModalRef.hide();
             this.spinner.hide();
@@ -62,19 +62,17 @@ export class AddEditItemComponent implements OnInit {
           }
         );
       } else if (this.action === ACTION.EDIT) {
-        this.client
-          .put(`/api/items/${this.item.id}`, this.form.value)
-          .subscribe(
-            () => {
-              this.bsModalRef.hide();
-              this.spinner.hide();
-              this.toastr.success('Item modified successfully.');
-            },
-            () => {
-              this.spinner.hide();
-              this.toastr.error('Oops, failed to add item. :(');
-            }
-          );
+        this.service.updateItem(this.item.id, this.form.value).subscribe(
+          () => {
+            this.bsModalRef.hide();
+            this.spinner.hide();
+            this.toastr.success('Item modified successfully.');
+          },
+          () => {
+            this.spinner.hide();
+            this.toastr.error('Oops, failed to add item. :(');
+          }
+        );
       }
     }
   }
