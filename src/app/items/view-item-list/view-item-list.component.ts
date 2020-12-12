@@ -14,6 +14,9 @@ import { ToastrService } from 'ngx-toastr';
 export class ViewItemListComponent implements OnInit {
   public items: Item[];
   public bsModalRef: BsModalRef;
+  public currentPage: number = 1;
+  public itemsPerPage: number = 5;
+  public itemsOnDisplay: Item[];
 
   constructor(
     private modalService: BsModalService,
@@ -31,6 +34,7 @@ export class ViewItemListComponent implements OnInit {
     this.service.getItems().subscribe(
       (response) => {
         this.items = response;
+        this.updatePage();
         this.spinner.hide();
       },
       () => {
@@ -65,5 +69,17 @@ export class ViewItemListComponent implements OnInit {
     this.modalService.onHide.subscribe(() => {
       this.fetchItems();
     });
+  }
+
+  updatePage () {
+    this.itemsOnDisplay = this.items.slice(
+      (this.currentPage - 1) * this.itemsPerPage,
+      this.itemsPerPage * this.currentPage
+    );
+  }
+
+  onPageChange(eventArg) {
+    this.currentPage = eventArg.page;
+    this.updatePage();
   }
 }

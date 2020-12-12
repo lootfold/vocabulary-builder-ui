@@ -7,7 +7,7 @@
     </button>
   </div>
   <ol class="list-group mt-2">
-    <li class="list-group-item" *ngFor="let item of items">
+    <li class="list-group-item" *ngFor="let item of itemsOnDisplay">
       <div class="d-flex flex-row">
         <div class="d-flex align-items-center">
           <a (click)="openModal(item)">
@@ -22,6 +22,13 @@
       </div>
     </li>
   </ol>
+  <div class="mt-2 float-right">
+    <pagination
+      [totalItems]="items && items.length"
+      [itemsPerPage]="itemsPerPage"
+      [(ngModel)]="currentPage"
+      (pageChanged)="onPageChange($event)"></pagination>
+  </div>
 </div>
 
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
